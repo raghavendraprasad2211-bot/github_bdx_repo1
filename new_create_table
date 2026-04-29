@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS user_delta_generated_id (
+  id BIGINT GENERATED ALWAYS AS IDENTITY ( START WITH 10000 INCREMENT BY 1 ), 
+  firstname STRING, 
+  lastname STRING, 
+  email STRING, 
+  address STRING) ;
+
+-- Note that we don't insert data for the id. The engine will handle that for us:
+INSERT INTO user_delta_generated_id (firstname, lastname, email, address) SELECT
+    firstname,
+    lastname,
+    email,
+    address
+  FROM user_delta;
+
+-- The ID is automatically generated!
+SELECT * from user_delta_generated_id;
